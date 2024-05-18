@@ -8,18 +8,22 @@
   "dependencies": {
     "@cap-js/postgres": "^1.8.0",
     "@sap/cds": "^7",
+    "@sap/xssec": "^3.6.1",
     "express": "^4",
+    "passport": "^0",
     "pg": "^8.11.5",
-    "sqlite": "^5.1.1",
-    "@sap/xssec": "^3",
-    "passport": "^0"
+    "sqlite": "^5.1.1"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
-    "@sap/cds-dk": "^7"
+    "@sap/cds-dk": "^7.9.2",
+    "@sap/ux-specification": "^1.120.10"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds-serve",
+    "watch-planets": "cds watch --open planets/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-artificialsatellites": "cds watch --open artificialsatellites/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-naturalsatellites": "cds watch --open naturalsatellites/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requires": {
@@ -31,5 +35,10 @@
       },
       "auth": "xsuaa"
     }
-  }
+  },
+  "sapux": [
+    "app/planets",
+    "app/artificialsatellites",
+    "app/naturalsatellites"
+  ]
 }

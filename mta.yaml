@@ -26,6 +26,24 @@ modules:
       - name: postgres
       - name: Astronomy-auth
 
+  - name: Astronomy
+    type: approuter.nodejs
+    path: app/
+    parameters:
+      buildpack: nodejs_buildpack
+      stack: cflinuxfs4
+      keep-existing-routes: true
+      disk-quota: 2048M
+      memory: 256M
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: Astronomy-auth
+
   - name: Astronomy-postgres-deployer
     type: nodejs
     path: gen/pg
@@ -37,14 +55,14 @@ modules:
         - name: deploy-to-postgresql
           command: npm start
     requires:
-      - name: Astronomy-postgres
+      - name: postgres
 
 resources:
   - name: postgres
     type: org.cloudfoundry.managed-service
     parameters:
       service: postgresql-db
-      service-plan: trail
+      service-plan: trial
 
   - name: Astronomy-auth
     type: org.cloudfoundry.managed-service
